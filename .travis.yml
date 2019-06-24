@@ -1,0 +1,34 @@
+language: node_js
+node_js:
+- stable
+addons:
+  code_climate:
+    repo_token:
+      secure: OFDTo9IAUoN43jxZGTLoekD3Zi7bufmxE4fhPbxqgMNLCRx4RT1nLRrGOZH+wcu669KaIIxi6rV6E68T6acCovEn2/oKSsaQu+0qGtg7aulb0fK/kSEMOMDnAuDnnEOS9S+MiBQulKTHixomtx/FKSZjAJQXYsQiWHh+Q2tYbwyVuX9Sd2cppyItUuDqH2yp6xdPDrZi5Yqh1wZIrwKaKtEsGomOgp4n1LR8vVzS3dhzBVK2c+F6KlUa2qjXFBmy2paS6rsvT26vc0q1AYXtlP/Vy6T2AvU7BqRQS/dbUMDQL07C/8liSCZvj4X7v6JjtVcv2SvtCEUAzlGLYlUDamwrBhna9Bn34ARgcNXH+5Wph4XqgDjiP7C3Z/qghdumRXoIu27Ary/yyGLFBR/UQUJfsY7BVz5M9fd4iay9FjZk5qE7hswsttH0fHh67QzljUMUZ3OmLeFnHKm6h/VTdU/jzFUubqefPviB4Dx+mWx6gwawgpXialuJD38eQIco/Gab7r/wEDkG0mjUxCwLAImrsQ6Oglbm0mn4nU4vU45TkttML0k7eSPjY+ncuA5ho8+mgI6B7WQ7sy1uE2EljszWOpTezroG/x29c5rzRHwORTNA43YY+lyk4y81ZXo55Rg5dto8BLaH9qK1gKsb/ekZ5xLV21t8SkcgM8ypZtQ=
+before_script:
+- yarn setup
+- yarn build
+- yarn global add codeclimate-test-reporter
+script:
+- yarn coverage
+after_success:
+- npm pack
+after_script:
+  - codeclimate-test-reporter < ./coverage/lcov.info
+deploy:
+  - provider: releases
+    api_key:
+      secure: RI9aHp5+8e8FmRh33c3vgkFz/hgVXiruGRxvAdfIJi+bL1N4V7YJx7DvwiujBFDucKJYiAMxu2Qwdq2cXqHOsRY2Btu4y6G7oKFzWZlCvxdv5K3KYhNoy5baikD9xFPkto9t8b2J41xJCFyFT4ZElo6lqOjis8cNFW79anhro87gbKzex3ndjuRnAeCn2AuQJLrSAEs0SO7B+DrxKjBPENmd6KWFW+17wx66AjNpwGfNn4bSoR3oqVxQVAz26DlqrxgXz3+yz7Rgurl3TcU5QTw7o676OP1cbvuil0QEFbLGyEzb0hSTKrxZ4JSiK76CIFHJSnqEtclf/Hv++fjWisN3/i9Pxlu3b96spd3QVwRBPyt2FOLomWKSnkuyuoc/5cDoWMFubXuxlWM/hsa+RBG+nNCywYsB83u8duFsowevzNqZlnttyxsi+FhCE9zHSS+geg1ViCMEfIqsl4Al+JUIpmQEQebpNd7gcTIoKd/lrVyLqUmLcIYAU9uOSk9wJQOagkqK+BklnhDysfCJq87bmLfQ0jLbfPcrw8PyNQ22JPFeh0vMy/sp6fsQWnKatBTpkHbYrFl94HyI+5KaMkd8JXXh/JWUS2mtPGSaEjLZJ3J1xx02rPljIfnLpgAWCqOafhqb3lTK7DpC75cMQ0IsXEHlkRogcf5/UJVykHk=
+    file: nodejs-event-manager-*.tgz
+    skip_cleanup: true
+    on:
+      tags: true
+  - provider: npm
+    email: 
+      secure: nDNoR3sktWF6SrZJdoDkzUVbw55h9uEK22VfUqGWzAr366YP9mBq5edJ2SNPJmKGsdlP5SGlgwCaWw0rMRt+Rpk2+CpTXKgwgw7mV0ddR59yM39TAev9gUJwPEmeC79YFPjF4IOeeoVXXGjO3e4ZhjvCIhHt1S2AS3TKrBP27w3zjz8wk0sfhcVN2yc473bsWUrdtoSnWXJMB8yRHGsFdp435IVa98Q+a2YSsq6+V/hhMmYNAxZD+y7AYW1l/96i8AbfKRkkrrBnbRezHDcCPO0YG45S4sDooXi1grgIqmcAGnK8cUsgKCHFRd2QkADZjwGVPorywwfIcctp5O/iVcCP5Ah3g2RMDuJn1x5ZuvgtS2KBtSaGJJQPD9XjjILPCP9w9lAsAjUdUd8viJPdDAe88Rsmn8RLuKdIwZFuVNE5Yk4DgjuTYGVSDEgWbl28txpZJtb2t3POkVOSt9CuzWKtEUN/m1VxSzlx6m/VyyrL27qpKEWQ1Bcp8YsdwDHzU85So7SrrvWUfNqdExaB3WvOg9OWUqqnvxJr8aXf14CfFzBtEdsWmcjMLlb/ISE36iDymzRINWAIQ/MJ0DiGwrbKD/Q0CJrqhb+80vpYnV5c9ni+oqHBP1QdsYmusMMKC8xrgWckjCehJM++0CoLvfsk/8xVmkhRMzR/++P+TW8=
+    skip_cleanup: true
+    api_key:
+      secure: 1rxh3bzVIfOCUfxnh/0G84tP5wpWcjhy8KOIrZvFOIpg1iSEF7v8Yq9Ge0UHiAcebX7IrIYfuchJwVlRWDv3rTrzMntaPHJnFE6gNpRtfQDP4BzRV/E+IreeSuTwSCLINCq+9Va7+FQ+TVf2yfZYxT0eLLEKvuCYRFcUK65g+A9lFh6Oo2b9ZrgpmuJvTxTo6qiar65e1x0X7z/+tWyPQmGXAGPeF/gWNPmjQVWLPIwSluZS+08u4r5ArIqzMxzL59Rh6JwVm5Qduugim2mOYEExrNl6UUE47XKzhseh8EEouTuff4h9TiPkiR+KYPC9qcSzkDjkIogx49z+sBfgbkyFTVS/FYQZe69sW6DGnsOR9XC0u7kTU4vYAcP6oFQ0dtgmZUZUNKR6CNzgx9/DK11OTqnI9Oa98oojA8De+ad5sjT3Zg56Q0iaAOcU73WkdbOuTeqd3OThTNsBUA6BNHs9FwboFtiJARFBdEXfQwf8SgFcaqqSaftXAu+HT+qVtyU76inwTXQENiGAaSNkFwey+nObl+YNOVJNFaI08wzPnckvX8fpmi4zm1WTp3dg0AIiiAVIXLI8u9TDhl+ZYj829Z01OEvq2klDc62goXW9C/oiZJnFwdpTdfo9ZSu+cCJCE603LitF4yCG8BtgrNuoSNL2wA15kv76U5lnY74=
+    on:
+      tags: true
+      repo: mimiz/nodejs-event-manager
