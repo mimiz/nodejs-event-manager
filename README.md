@@ -1,5 +1,9 @@
 # NodeJS Event Manager
 
+[![Build Status](https://travis-ci.org/mimiz/nodejs-event-manager.svg?branch=master)](https://travis-ci.org/mimiz/nodejs-event-manager)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5001d34b4593dbd1c693/maintainability)](https://codeclimate.com/github/mimiz/nodejs-event-manager/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/5001d34b4593dbd1c693/test_coverage)](https://codeclimate.com/github/mimiz/nodejs-event-manager/test_coverage)
+
 A NodeJS Event Manager using builtin NodeJS Events.
 
 The main purpose of this package, is to facilitate the use of events, in a node JS  application.
