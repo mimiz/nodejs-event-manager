@@ -1,6 +1,6 @@
 {
   "name": "nodejs-event-manager",
-  "description": "A nodeJS Event Manager to emit, and listen event through nodeJs",
+  "description": "A nodeJS Event Manager to emit, and listen event through nodeJS",
   "author": {
     "email": "rgoyard@gmail.com",
     "name": "Rémi Goyard",
