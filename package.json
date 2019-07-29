@@ -22,8 +22,8 @@
   "scripts": {
     "setup": "yarn",
     "build": "tsc",
-    "test": "cross-env NODE_ENV=test mocha --recursive \"./test/**/*.test.ts\"",
-    "coverage": "cross-env NODE_ENV=test RABBITMQ_EVENT_MANAGER_TRANSPORT_MODE=mute nyc --all mocha --recursive \"./test/**/*.test.ts\"",
+    "test": "cross-env NODE_ENV=test mocha --exit --recursive \"./test/**/*.test.ts\"",
+    "coverage": "cross-env NODE_ENV=test RABBITMQ_EVENT_MANAGER_TRANSPORT_MODE=mute nyc --all mocha --exit --recursive \"./test/**/*.test.ts\"",
     "prebuild": "rimraf build",
     "lint": "yarn run lint:format && yarn run lint:quality",
     "lint:fix": "yarn run lint:format:fix && yarn run lint:quality:fix",
