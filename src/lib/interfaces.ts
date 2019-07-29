@@ -3,15 +3,17 @@ export interface IEventPayloadMetas {
   name: string;
   application: string;
   timestamp: number;
+  correlationId?: string;
+  replyTo?: string;
   [k: string]: any;
 }
 export interface IEventPayload {
   [k: string]: any;
-  _metas?: IEventPayloadMetas;
+  _metas?: Partial<IEventPayloadMetas>;
 }
 export type EventHandlerFunction = (
   payload: IEventPayload
-) => void | Promise<boolean | void>;
+) => Promise<IEventPayload | void | null> | IEventPayload | void | null;
 export type OverrideMetasFunction = (
   metas: IEventPayloadMetas
 ) => IEventPayloadMetas;
@@ -21,4 +23,10 @@ export interface IEventManagerOptions {
   logLevel: "error" | "debug" | "info" | "warn";
   logPrefix: string;
   logTransportMode: "console" | "mute";
+  defaultResponseSuffix: string;
+  emitAndWaitTimeout: number;
+}
+
+export interface IEmitAndWaitOptions {
+  emitAndWaitTimeout?: number;
 }
