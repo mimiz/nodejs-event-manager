@@ -2,6 +2,7 @@
 *.log
 npm-debug.log*
 build/
+.history/
 dist/
 docs/
 package/
