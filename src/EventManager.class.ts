@@ -131,6 +131,11 @@ export class EventManager {
     return this.emittery.clearListeners();
   }
 
+  public async reset() {
+    LOGGER.debug(`Reset EventManager listeners`, { ...this.options });
+    return this.emittery.clearListeners();
+  }
+
   private addMetasToPayload(
     payload: IEventPayload,
     eventName: string
